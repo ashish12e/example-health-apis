@@ -519,6 +519,7 @@ sequenceDiagram
   ```jcl
   //STEP1 EXEC PGM=BPXBATCH,PARM='sh curl --cert /u/paybatch/cert.pem --key /u/paybatch/key.pem https://api.example.com/payments'
   ```
+  
 
 #### 4. Outbound HTTP Client Options
 - **z/OS Client Web Enablement Toolkit:**
@@ -561,9 +562,73 @@ CALL 'CEEGTST' USING
 * HTTP-REQUEST-BLOCK contains URL, headers, credentials (from secure store)
 * RETURN-CODE checked for errors (e.g., 401, 403, SSL errors)
 ```
+## 12. z/OS vs z/VM vs Linux on Z: Differences, Purposes, and Use Cases
+
+### 12.1 z/OS
+- **Type:** Mainframe operating system (flagship IBM OS)
+- **Primary Purpose:**
+  - Enterprise transaction processing, batch processing, and data management
+  - Runs critical workloads: CICS, IMS, DB2, batch jobs, JES2/JES3, RACF
+- **Key Use Cases:**
+  - High-volume banking, insurance, government, and retail transaction systems
+  - Batch processing (JCL jobs, COBOL, PL/I)
+  - Secure data hosting and regulatory compliance
+  - Integration with modern APIs (z/OS Connect, REST, MQ)
+
+### 12.2 z/VM
+- **Type:** Mainframe hypervisor (virtualization OS)
+- **Primary Purpose:**
+  - Create and manage multiple virtual machines (VMs) on IBM Z hardware
+  - Each VM can run its own OS (Linux, z/OS, z/VSE, etc.)
+- **Key Use Cases:**
+  - Server consolidation: run hundreds/thousands of Linux VMs on one mainframe
+  - Test/dev environments for z/OS, Linux, or other mainframe OSes
+  - Cloud and service provider platforms (multi-tenant)
+  - Isolated sandboxes for application testing
+
+### 12.3 Linux on Z
+- **Type:** Linux distributions (RHEL, SUSE, Ubuntu) compiled for IBM Z architecture
+- **Primary Purpose:**
+  - Run open-source, cloud-native, and distributed workloads on mainframe hardware
+  - Leverage mainframe reliability, security, and scalability for Linux apps
+- **Key Use Cases:**
+  - Web servers, application servers, databases (PostgreSQL, MongoDB, etc.)
+  - Container platforms (OpenShift, Kubernetes)
+  - DevOps tooling, CI/CD pipelines
+  - Hybrid cloud integration and microservices
+  - Modernization: co-locate Linux and z/OS workloads for tight integration
 
 ---
+
+### 12.4 Visual: IBM Z Operating Environments
+
+```mermaid
+graph TD
+    ZHW["IBM Z Hardware"]
+    zOS["z/OS"]
+    zVM["z/VM (Hypervisor)"]
+    LINUX["Linux on Z"]
+    ZHW --> zOS
+    ZHW --> zVM
+    zVM --> LINUX
+    zVM --> zOS
+    ZHW --> LINUX
+```
+
+---
+
+### 12.5 Summary Table
+| Environment | Type         | Primary Purpose                        | Typical Use Cases                                  |
+|-------------|--------------|----------------------------------------|----------------------------------------------------|
+| z/OS        | OS           | Transaction & batch processing         | CICS, IMS, DB2, batch jobs, secure data hosting    |
+| z/VM        | Hypervisor   | Virtualization, multi-OS hosting       | Linux VM farms, test/dev, cloud, multi-tenancy     |
+| Linux on Z  | OS           | Open-source/cloud-native workloads     | Web/app servers, containers, DevOps, hybrid cloud  |
+
+---
+
+
 
 **Document Version:** 1.0  
 **Date Created:** January 18, 2026  
 **Purpose:** Visual Reference for Mainframe Architecture
+
